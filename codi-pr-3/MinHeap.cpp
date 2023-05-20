@@ -10,9 +10,10 @@
  * @tparam Valor
  */
 template<class Clau, class Valor>
-MinHeap<Clau, Valor>::MinHeap() {
+MinHeap<Clau, Valor>::MinHeap()
+{
     mida = 0;
-    data = vector < NodeHeap < Clau, Valor >> ();
+    data = vector<NodeHeap<Clau, Valor >>();
 }
 
 /**
@@ -22,7 +23,8 @@ MinHeap<Clau, Valor>::MinHeap() {
  * @param orig - MinHeap del qual fer la còpia
  */
 template<class Clau, class Valor>
-MinHeap<Clau, Valor>::MinHeap(const MinHeap<Clau, Valor> &orig) : MinHeap() {
+MinHeap<Clau, Valor>::MinHeap(const MinHeap<Clau, Valor> &orig) : MinHeap()
+{
 
 }
 
@@ -33,7 +35,8 @@ MinHeap<Clau, Valor>::MinHeap(const MinHeap<Clau, Valor> &orig) : MinHeap() {
  * @return
  */
 template<class Clau, class Valor>
-int MinHeap<Clau, Valor>::tamany() {
+int MinHeap<Clau, Valor>::tamany()
+{
     return mida;
 }
 
@@ -44,7 +47,8 @@ int MinHeap<Clau, Valor>::tamany() {
  * @return
  */
 template<class Clau, class Valor>
-bool MinHeap<Clau, Valor>::esBuit() {
+bool MinHeap<Clau, Valor>::esBuit()
+{
     return mida == 0;
 }
 
@@ -56,10 +60,11 @@ bool MinHeap<Clau, Valor>::esBuit() {
  * @param valor
  */
 template<class Clau, class Valor>
-void MinHeap<Clau, Valor>::inserir(const Clau &clau, const Valor &valor) {
+void MinHeap<Clau, Valor>::inserir(const Clau &clau, const Valor &valor)
+{
 
     // Inserim un nou node al final del vector
-    NodeHeap <Clau, Valor> nou_node = NodeHeap<Clau, Valor>(clau, valor);
+    NodeHeap<Clau, Valor> nou_node = NodeHeap<Clau, Valor>(clau, valor);
     data.push_back(nou_node);
 
     // Cridem la funció upheap per reordenar el heap
@@ -74,7 +79,8 @@ void MinHeap<Clau, Valor>::inserir(const Clau &clau, const Valor &valor) {
  * @return Valor
  */
 template<class Clau, class Valor>
-Clau MinHeap<Clau, Valor>::minim() {
+Clau MinHeap<Clau, Valor>::minim()
+{
     return data[0].getKey();
 }
 
@@ -85,7 +91,8 @@ Clau MinHeap<Clau, Valor>::minim() {
  * @return Valor
  */
 template<class Clau, class Valor>
-Valor MinHeap<Clau, Valor>::valorMinim() {
+Valor MinHeap<Clau, Valor>::valorMinim()
+{
     return data[0].getValue();
 }
 
@@ -95,13 +102,15 @@ Valor MinHeap<Clau, Valor>::valorMinim() {
  * @tparam Valor
  */
 template<class Clau, class Valor>
-void MinHeap<Clau, Valor>::eliminaMinim() {
-    if (mida == 0) {
+void MinHeap<Clau, Valor>::eliminaMinim()
+{
+    if (mida == 0)
+    {
         throw out_of_range("void MinHeap<Clau, Valor>::eliminaMinim(): El vector data no conté cap element");
     }
 
     // Intercanviem el primer element amb l'últim
-    NodeHeap <Clau, Valor> ultim, minim;
+    NodeHeap<Clau, Valor> ultim, minim;
 
     // Guardem l'element mínim
     minim = data[0];
@@ -121,12 +130,15 @@ void MinHeap<Clau, Valor>::eliminaMinim() {
  * @tparam Valor
  */
 template<class Clau, class Valor>
-void MinHeap<Clau, Valor>::imprimir() {
+void MinHeap<Clau, Valor>::imprimir()
+{
     int line_break = 2;
     cout << endl;
-    for (int i = 0; i < mida; i++) {
-        cout << "key: " << data[i].getKey() << "\t";
-        if (i + 2 == line_break) {
+    for (int i = 0; i < mida; i++)
+    {
+        cout << data[i].getKey() << "\t";
+        if (i + 2 == line_break)
+        {
             cout << endl;
             line_break *= 2;
         }
@@ -142,9 +154,12 @@ void MinHeap<Clau, Valor>::imprimir() {
  * @return
  */
 template<class Clau, class Valor>
-Valor MinHeap<Clau, Valor>::cerca(const Clau &clau) {
-    for (int i = 0; i < data.size(); i++) {
-        if (data[i].getKey() == clau) {
+Valor MinHeap<Clau, Valor>::cerca(const Clau &clau)
+{
+    for (int i = 0; i < data.size(); i++)
+    {
+        if (data[i].getKey() == clau)
+        {
             return data[i].getValue();
         }
     }
@@ -160,8 +175,10 @@ Valor MinHeap<Clau, Valor>::cerca(const Clau &clau) {
  * @return
  */
 template<class Clau, class Valor>
-int MinHeap<Clau, Valor>::altura() const {
-    if (mida == 0) {
+int MinHeap<Clau, Valor>::altura() const
+{
+    if (mida == 0)
+    {
         return 0;
     }
 
@@ -177,14 +194,17 @@ int MinHeap<Clau, Valor>::altura() const {
  * @return
  */
 template<class Clau, class Valor>
-int MinHeap<Clau, Valor>::getParent(int child) {
+int MinHeap<Clau, Valor>::getParent(int child)
+{
 
-    if (child <= 0) {
+    if (child <= 0)
+    {
         throw invalid_argument("int MinHeap<Clau, Valor>::getParent(int child): El node 0 no té node pare");
     }
 
     // Fill en un node amb key parell
-    if (!(child % 2)) {
+    if (!(child % 2))
+    {
         return (child - 2) / 2;
     }
 
@@ -199,25 +219,29 @@ int MinHeap<Clau, Valor>::getParent(int child) {
  * @tparam Valor
  */
 template<class Clau, class Valor>
-void MinHeap<Clau, Valor>::upheap() {
+void MinHeap<Clau, Valor>::upheap()
+{
 
     int child = data.size() - 1;
 
     // Si el heap només té un node, no cal fer cap reordenació
-    if (child == 0) {
+    if (child == 0)
+    {
         return;
     }
 
     // Si l'index del fill és més petit que el del pare, els intercanviem
     int parent = getParent(child);
-    while (child > 0 && data[child].getKey() < data[parent].getKey()) {
-        NodeHeap <Clau, Valor> aux = data[parent];
+    while (child > 0 && data[child].getKey() < data[parent].getKey())
+    {
+        NodeHeap<Clau, Valor> aux = data[parent];
         data[parent] = data[child];
         data[child] = aux;
 
         // Actualitzem els índex del nou node i del seu pare
         child = parent;
-        if (child != 0) {
+        if (child != 0)
+        {
             parent = getParent(child);
         }
     }
@@ -231,12 +255,14 @@ void MinHeap<Clau, Valor>::upheap() {
  * @tparam Valor
  */
 template<class Clau, class Valor>
-void MinHeap<Clau, Valor>::downheap() {
+void MinHeap<Clau, Valor>::downheap()
+{
     int node = 0, child = getSmallestChildIndex(node);
 
     // Mentre el node tingui algun fill de clau més petita, els intercanviem
-    while (child != -1 && data[node].getKey() > data[child].getKey()) {
-        NodeHeap <Clau, Valor> aux = data[node];
+    while (child != -1 && data[node].getKey() > data[child].getKey())
+    {
+        NodeHeap<Clau, Valor> aux = data[node];
 
         data[node] = data[child];
         data[child] = aux;
@@ -257,7 +283,8 @@ void MinHeap<Clau, Valor>::downheap() {
  * @return int
  */
 template<class Clau, class Valor>
-int MinHeap<Clau, Valor>::getSmallestChildIndex(int node) {
+int MinHeap<Clau, Valor>::getSmallestChildIndex(int node)
+{
 
     int child_l, child_r;
 
@@ -265,13 +292,17 @@ int MinHeap<Clau, Valor>::getSmallestChildIndex(int node) {
     child_r = 2 * node + 2;
 
     // Si té dos fills, retornem l'índex del node que té clau més petita
-    if (child_l < mida && child_r < mida) {
+    if (child_l < mida && child_r < mida)
+    {
         return data[child_r].getKey() < data[child_l].getKey() ? child_r : child_l;
     }
         // Si només té un fill, retornem aquest
-    else if (child_l < mida) {
+    else if (child_l < mida)
+    {
         return child_l;
-    } else if (child_r < mida) {
+    }
+    else if (child_r < mida)
+    {
         return child_r;
     }
 

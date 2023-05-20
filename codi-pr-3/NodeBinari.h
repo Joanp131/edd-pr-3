@@ -7,38 +7,65 @@
 
 #include "iostream"
 #include "Movie.h"
+
 using namespace std;
 
-template <class Clau, class Valor >
-class NodeBinari {
+template<class Clau, class Valor>
+class NodeBinari
+{
 public:
+    // O(1)
     NodeBinari(const Clau &key, const Valor &v, bool is_root);
-    NodeBinari(const NodeBinari<Clau,Valor >& orig);
+
+    // O(n)
+    NodeBinari(const NodeBinari<Clau, Valor> &orig);
+
+    // O(1)
     virtual ~NodeBinari();
 
     /* Modificadors */
-    // declareu aquí els modificadors (setters) dels atributs que necessiteu
-    void setKey(Clau key);
-    void setValue(Valor value);
-    void setLeft(NodeBinari<Clau, Valor>* left);
-    void setRight(NodeBinari<Clau, Valor>* right);
+
+    // O(1)
+    void setLeft(NodeBinari<Clau, Valor> *left);
+
+    // O(1)
+    void setRight(NodeBinari<Clau, Valor> *right);
 
     /* Consultors */
-    const Clau& getKey() const;
-    const Valor& getValue() const;
+    // O(1)
+    const Clau &getKey() const;
 
+    // O(1)
+    const Valor &getValue() const;
+
+    // O(1)
     NodeBinari<Clau, Valor> *getLeft();
+
+    // O(1)
     NodeBinari<Clau, Valor> *getRight();
     // declareu aquí els consultors (getters) dels atributs que necessiteu
 
     /* Operacions */
+    // O(1)
     bool isRoot() const;
+
+    // O(1)
     bool hasLeft() const;
+
+    // O(1)
     bool hasRight() const;
+
+    // O(1)
     bool isExternal() const;
-    void insertValue(const Valor & v);
+
+    // O(1)
+    void insertValue(const Valor &v);
+
+    // O(n)
     int height() const;
-    bool operator==(const NodeBinari<Clau,Valor >& node) const;
+
+    // O(n)
+    bool operator==(const NodeBinari<Clau, Valor> &node) const;
 
 
 private:
@@ -46,8 +73,8 @@ private:
     Valor value;
     // afegiu aquí els atributs que falten
 
-    NodeBinari<Clau, Valor>* left;
-    NodeBinari<Clau, Valor>* right;
+    NodeBinari<Clau, Valor> *left;
+    NodeBinari<Clau, Valor> *right;
 
     bool is_root;
 };

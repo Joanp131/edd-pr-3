@@ -13,5 +13,3 @@ add_executable(edd_pr_3
         codi-pr-3/CercadorMoviesAB.cpp codi-pr-3/CercadorMoviesAB.h
         codi-pr-3/MinHeap.cpp codi-pr-3/MinHeap.h
         codi-pr-3/NodeHeap.cpp codi-pr-3/NodeHeap.h codi-pr-3/CercadorMoviesHeap.cpp codi-pr-3/CercadorMoviesHeap.h)
-
-

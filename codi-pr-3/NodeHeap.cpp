@@ -39,9 +39,13 @@ Valor NodeHeap<Clau, Valor>::getValue() const
 }
 
 template<class Clau, class Valor>
-bool NodeHeap<Clau, Valor>::operator==(const NodeHeap<Clau, Valor> &node) const {
+bool NodeHeap<Clau, Valor>::operator==(const NodeHeap<Clau, Valor> &node) const
+{
     return node.getKey() == this->key;
 }
 
-template class NodeHeap<int, int>;
-template class NodeHeap<int, Movie>;
+template
+class NodeHeap<int, int>;
+
+template
+class NodeHeap<int, Movie>;

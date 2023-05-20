@@ -4,8 +4,17 @@
 
 #include "NodeBinari.h"
 
+/**
+ * Constructor amb paràmetres
+ * @tparam Clau
+ * @tparam Valor
+ * @param key
+ * @param v
+ * @param is_root
+ */
 template<class Clau, class Valor>
-NodeBinari<Clau, Valor>::NodeBinari(const Clau &key, const Valor &v, bool is_root) : key(key), value(v), is_root(is_root)
+NodeBinari<Clau, Valor>::NodeBinari(const Clau &key, const Valor &v, bool is_root) : key(key), value(v),
+                                                                                     is_root(is_root)
 {
     left = nullptr;
     right = nullptr;
@@ -18,17 +27,25 @@ NodeBinari<Clau, Valor>::NodeBinari(const Clau &key, const Valor &v, bool is_roo
  * @param orig
  */
 template<class Clau, class Valor>
-NodeBinari<Clau, Valor>::NodeBinari(const NodeBinari<Clau, Valor> &orig) : NodeBinari(orig.key, orig.value, orig.is_root)
+NodeBinari<Clau, Valor>::NodeBinari(const NodeBinari<Clau, Valor> &orig) : NodeBinari(orig.key, orig.value,
+                                                                                      orig.is_root)
 {
-    if(orig.hasLeft()) {
+    if (orig.hasLeft())
+    {
         this->left = new NodeBinari<Clau, Valor>(*orig.left);
     }
 
-    if(orig.hasRight()) {
+    if (orig.hasRight())
+    {
         this->right = new NodeBinari<Clau, Valor>(*orig.right);
     }
 }
 
+/**
+ * Destructor per defecte
+ * @tparam Clau
+ * @tparam Valor
+ */
 template<class Clau, class Valor>
 NodeBinari<Clau, Valor>::~NodeBinari()
 {
@@ -38,17 +55,6 @@ NodeBinari<Clau, Valor>::~NodeBinari()
 //    cout << "\tEliminat NodeBinari " << getKey() << endl;
 }
 
-template<class Clau, class Valor>
-void NodeBinari<Clau, Valor>::setKey(Clau key)
-{
-    this->key = key;
-}
-
-template<class Clau, class Valor>
-void NodeBinari<Clau, Valor>::setValue(Valor value)
-{
-    this->value = value;
-}
 
 template<class Clau, class Valor>
 void NodeBinari<Clau, Valor>::setLeft(NodeBinari<Clau, Valor> *left)
@@ -116,20 +122,29 @@ void NodeBinari<Clau, Valor>::insertValue(const Valor &v)
     value = v;
 }
 
+/**
+ * Calcula l'alçada del node recursivament
+ * @tparam Clau
+ * @tparam Valor
+ * @return
+ */
 template<class Clau, class Valor>
 int NodeBinari<Clau, Valor>::height() const
 {
-    if (this->isExternal()) {
+    if (this->isExternal())
+    {
         return 1;
     }
 
     int left_height = 0, right_height = 0;
 
-    if (this->hasLeft()) {
+    if (this->hasLeft())
+    {
         left_height = this->left->height() + 1;
     }
 
-    if (this->hasRight()) {
+    if (this->hasRight())
+    {
         right_height = this->right->height() + 1;
     }
 
@@ -142,5 +157,8 @@ bool NodeBinari<Clau, Valor>::operator==(const NodeBinari<Clau, Valor> &node) co
     return key == node.getKey();
 }
 
-template class NodeBinari<int, int>;
-template class NodeBinari<int, Movie>;
+template
+class NodeBinari<int, int>;
+
+template
+class NodeBinari<int, Movie>;

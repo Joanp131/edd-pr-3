@@ -9,46 +9,84 @@
 #include <vector>
 #include <stdexcept>
 #include "NodeBinari.h"
+
 using namespace std;
 
 
-template <class Clau, class Valor>
-class ArbreBinari {
+template<class Clau, class Valor>
+class ArbreBinari
+{
 public:
+    // O(1)
     ArbreBinari();
-    ArbreBinari(const ArbreBinari<Clau, Valor>& orig);
+
+    // O(n)
+    ArbreBinari(const ArbreBinari<Clau, Valor> &orig);
+
+    // O(n)
     virtual ~ArbreBinari();
 
+    // O(1)
     bool isEmpty() const;
+
+    // O(n)
     int height() const;
 
-    NodeBinari<Clau,Valor>* insert(const Clau& clau, const Valor& value);
-    const Valor& valueOf(const Clau& clau) const;
-    void imprimirPreordre(const NodeBinari<Clau,Valor>* n = nullptr) const;
-    void imprimirInordre(const NodeBinari<Clau,Valor>* n = nullptr) const;
-    void imprimirPostordre(const NodeBinari<Clau,Valor>* n = nullptr) const;
-    vector< NodeBinari<Clau,Valor>* > obteValorsRang(int k1, int k2) const;
+    // O(n)
+    NodeBinari<Clau, Valor> *insert(const Clau &clau, const Valor &value);
+
+    // O(n)
+    const Valor &valueOf(const Clau &clau) const;
+
+    // O(n)
+    void imprimirPreordre(const NodeBinari<Clau, Valor> *n = nullptr) const;
+
+    // O(n)
+    void imprimirInordre(const NodeBinari<Clau, Valor> *n = nullptr) const;
+
+    // O(n)
+    void imprimirPostordre(const NodeBinari<Clau, Valor> *n = nullptr) const;
+
+    // O(n)
+    vector<NodeBinari<Clau, Valor> *> obteValorsRang(int k1, int k2) const;
+
+    // O(n)
     void imprimirCami(Clau key) const;
+
+    // O(n)
     void eliminaMinim();
+
 protected:
-    NodeBinari<Clau,Valor>* root;
-    NodeBinari<Clau,Valor>* search(const Clau& k) const;
+    NodeBinari<Clau, Valor> *root;
+
+    // O(n)
+    NodeBinari<Clau, Valor> *search(const Clau &k) const;
+
 private:
     int _size;
 
     /* Mètodes auxiliars definiu aquí els que necessiteu */
-    void delelte_rec(NodeBinari<Clau, Valor>* node);
 
-    void insert_rec(NodeBinari<Clau, Valor>* pos, NodeBinari<Clau, Valor>* nou_node);
+    // O(n)
+    void delelte_rec(NodeBinari<Clau, Valor> *node);
 
-    void valueOf_rec(NodeBinari<Clau, Valor>* node, const Clau &clau);
+    // O(n)
+    void insert_rec(NodeBinari<Clau, Valor> *pos, NodeBinari<Clau, Valor> *nou_node);
 
-    void preordre_rec(NodeBinari<Clau, Valor>* node) const;
-    void inordre_rec(NodeBinari<Clau, Valor>* node, int *print_count) const;
-    void postordre_rec(NodeBinari<Clau, Valor>* node) const;
+    // O(n)
+    void preordre_rec(NodeBinari<Clau, Valor> *node) const;
 
-    void obteValorsRang_rec(NodeBinari<Clau, Valor>* node, vector<NodeBinari<Clau, Valor>*>& vec, int k1, int k2) const;
+    // O(n)
+    void inordre_rec(NodeBinari<Clau, Valor> *node, int *print_count) const;
 
+    // O(n)
+    void postordre_rec(NodeBinari<Clau, Valor> *node) const;
+
+    // O(n)
+    void
+    obteValorsRang_rec(NodeBinari<Clau, Valor> *node, vector<NodeBinari<Clau, Valor> *> &vec, int k1, int k2) const;
+
+    // O(n)
     void imprimirCami_rec(NodeBinari<Clau, Valor> *node, Clau key) const;
 };
 

@@ -1,6 +1,22 @@
 //
 // Created by Joanp on 4/5/2023.
 //
+
+/** ---------- TAULA DE TEMPS CRONOMETRAT -----------
+        OPERACIO     |  ARBRE BINARI  |  MINHEAP
+   --------------------------------------------------
+   INSERIR PETIT     |   2000         |   569
+   --------------------------------------------------
+   INSERIR GRAN      |   13784        |   15681
+   --------------------------------------------------
+   CERCA PETIT       |   78110        |   82365
+   --------------------------------------------------
+   CERCA GRAN        |   220664       |   734459
+   --------------------------------------------------
+
+   Tots els temps estan en micro segons.
+*/
+
 #include <chrono>
 #include "ArbreBinari.h"
 #include "CercadorMoviesAB.h"
@@ -9,7 +25,7 @@
 
 void prova_ex_1();
 
-int obte_opcio_menu(vector<string> &desc);
+int obte_opcio_menu(vector<string> &desc, string tipus);
 
 void mainArbreBinari();
 
@@ -17,28 +33,34 @@ void mainHeap();
 
 void casDeProvaExercici3();
 
-int main() {
+int main()
+{
 
-//    prova_ex_1();
+    cout << "****************** Prova exercici 1 ******************" << endl;
+    prova_ex_1();
 
-    //mainArbreBinari();
+    mainArbreBinari();
+
     mainHeap();
     return 0;
 }
 
-int obte_opcio_menu(vector<string> &desc) {
+int obte_opcio_menu(vector<string> &desc, string tipus)
+{
 
     int opcio;
 
-    cout << "******************** MENU ********************" << endl;
-    for (int i = 0; i < desc.size(); i++) {
+    cout << "******************** MENU ( " << tipus << " )********************" << endl;
+    for (int i = 0; i < desc.size(); i++)
+    {
         cout << i + 1 << "_ " << desc[i] << endl;
     }
 
     cout << "-> ";
     cin >> opcio;
 
-    while (opcio < 1 || opcio > desc.size()) {
+    while (opcio < 1 || opcio > desc.size())
+    {
         cout << "\nL'opció entrada és incorrecta, torna-ho a provar: ";
         cin >> opcio;
     }
@@ -46,7 +68,8 @@ int obte_opcio_menu(vector<string> &desc) {
     return opcio;
 }
 
-void prova_ex_1() {
+void prova_ex_1()
+{
     // Arbre binari buit
     ArbreBinari<int, int> tree1 = ArbreBinari<int, int>();
 
@@ -54,7 +77,8 @@ void prova_ex_1() {
     int testValues[] = {5, 5, 1, 88, 99, 12, 9, 11};
 
     // Omplim l'arbre amb els valors i claus donades
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 8; i++)
+    {
         tree1.insert(testKeys[i], testValues[i]);
     }
 
@@ -64,7 +88,8 @@ void prova_ex_1() {
 
     vector<NodeBinari<int, int> *> vect = tree1.obteValorsRang(5, 45);
     cout << "\nObteValorsRang = {";
-    for (NodeBinari<int, int> *i: vect) {
+    for (NodeBinari<int, int> *i: vect)
+    {
         cout << i->getKey() << ", ";
     }
     cout << "\b\b}" << endl;
@@ -83,10 +108,10 @@ void prova_ex_1() {
     tree2.eliminaMinim();
     tree2.imprimirInordre();
 
-//    delete &tree1;
 }
 
-void mainArbreBinari() {
+void mainArbreBinari()
+{
 
     CercadorMoviesAB cerca = CercadorMoviesAB();
 
@@ -99,13 +124,15 @@ void mainArbreBinari() {
             "Surt"
     };
 
-    int opcio = obte_opcio_menu(desc);
+    int opcio = obte_opcio_menu(desc, "Arbre Binari");
 
     ifstream ids("cercaPelicules.txt");
 
-    while (opcio != 6) {
+    while (opcio != 6)
+    {
 
-        switch (opcio) {
+        switch (opcio)
+        {
             /**
              * Case 1:
              *  Llegeix un fitxer i guarda les dades de les pel·lícules dins el cercador
@@ -115,7 +142,8 @@ void mainArbreBinari() {
                 cout << "\nQuin fitxer vols? (P/G): ";
                 cin >> opt;
 
-                if (opt == 'P' || opt == 'p') {
+                if (opt == 'P' || opt == 'p')
+                {
                     cout << "\nLlegint el fitxer 'movie_rating_small.txt'" << endl;
 
                     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
@@ -125,7 +153,9 @@ void mainArbreBinari() {
                     cout << "Temps transcorregut: "
                          << chrono::duration_cast<chrono::microseconds>(end - begin).count() << " micro s."
                          << endl;
-                } else {
+                }
+                else
+                {
                     cout << "\nLlegint el fitxer 'movie_rating.txt'" << endl;
 
                     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
@@ -141,10 +171,10 @@ void mainArbreBinari() {
 
             case 2:
                 /**
-                 * <b>Case 2:</b>
-                 *  Mostra l'arbre per ID creixent. Cada 40 linies, pregunta a l'usuari si vol seguir imprimint.
+                 * imprimim l'arbre per ID creixent
                  */
-//                cerca.imprimirInordre();
+
+                cerca.imprimirInordre();
                 break;
 
             case 3:
@@ -152,24 +182,42 @@ void mainArbreBinari() {
                  * Case 3:
                  *  Llegeix el fitxer "cercaPelicules.txt", i per cada ID imprimeix informació de la pel·lícula
                  */
-                if (ids.is_open()) {
+                if (ids.is_open())
+                {
                     int found = 0, total = 0;
-                    while (ids) {
+
+                    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+                    while (ids)
+                    {
                         int id;
                         ids >> id;
 
-                        try {
+                        try
+                        {
                             cout << cerca.buscarMovie(id).print() << endl;
                             found++;
-                        } catch (exception ex) {
+                        } catch (exception ex)
+                        {
                             // cout << ex.what() << endl;
                         }
                         total++;
                     }
 
+                    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+
+                    cout << "Temps transcorregut: "
+                         << chrono::duration_cast<chrono::microseconds>(end - begin).count() << " micro s."
+                         << endl;
+
+                    // Tornem al principi del fitxer per si hem de tornar a llegir totes les ids
+                    ids.clear();
+                    ids.seekg(0);
+
                     cout << "\nCerca finalitzada. S'han trobat " << found << " pel·lícules de " << total << " buscades"
                          << endl;
-                } else {
+                }
+                else
+                {
                     cout << "No s'ha pogut obrir el fitxer 'cercaPelicules.txt'" << endl;
                 }
 
@@ -197,32 +245,35 @@ void mainArbreBinari() {
                 break;
         }
 
-        opcio = obte_opcio_menu(desc);
+        opcio = obte_opcio_menu(desc, "Arbre Binari");
     }
 
 }
 
-void mainHeap() {
+void mainHeap()
+{
 
     // Min Heap
     CercadorMoviesHeap cerca = CercadorMoviesHeap();
 
     vector<string> desc{
             "Llegeix dades d'un fitxer",
-            "Mostra l'arbre per ID creixent",
+            "Mostra el Heap per nivells",
             "Cerca per ID",
             "Mostra la profunditat",
             "Esborra les n pel·lícules més petites",
             "Surt"
     };
 
-    int opcio = obte_opcio_menu(desc);
+    int opcio = obte_opcio_menu(desc, "Min Heap");
 
     ifstream ids("cercaPelicules.txt");
 
-    while (opcio != 6) {
+    while (opcio != 6)
+    {
 
-        switch (opcio) {
+        switch (opcio)
+        {
 
             case 1:
                 /**
@@ -232,7 +283,8 @@ void mainHeap() {
                 cout << "\nQuin fitxer vols? (P/G): ";
                 cin >> opt;
 
-                if (opt == 'P' || opt == 'p') {
+                if (opt == 'P' || opt == 'p')
+                {
                     cout << "\nLlegint el fitxer 'movie_rating_small.txt'" << endl;
 
                     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
@@ -242,7 +294,9 @@ void mainHeap() {
                     cout << "Temps transcorregut: "
                          << chrono::duration_cast<chrono::microseconds>(end - begin).count() << " micro s."
                          << endl;
-                } else {
+                }
+                else
+                {
                     cout << "\nLlegint el fitxer 'movie_rating.txt'" << endl;
 
                     chrono::steady_clock::time_point begin = chrono::steady_clock::now();
@@ -259,30 +313,48 @@ void mainHeap() {
                 /**
                  * Mostra l'arbre per ID creixent
                  */
+                cerca.imprimir();
                 break;
 
             case 3:
                 /**
                  * Cerca per ID
                  */
-                if (ids.is_open()) {
+                if (ids.is_open())
+                {
                     int found = 0, total = 0;
-                    while (ids) {
+
+                    chrono::steady_clock::time_point begin = chrono::steady_clock::now();
+                    while (ids)
+                    {
                         int id;
                         ids >> id;
 
-                        try {
+                        try
+                        {
                             cout << cerca.buscarMovie(id).print() << endl;
                             found++;
-                        } catch (exception ex) {
+                        } catch (exception ex)
+                        {
                             // cout << ex.what() << endl;
                         }
                         total++;
                     }
+                    chrono::steady_clock::time_point end = chrono::steady_clock::now();
+
+                    cout << "Temps transcorregut: "
+                         << chrono::duration_cast<chrono::microseconds>(end - begin).count() << " micro s."
+                         << endl;
+
+                    // Tornem al principi del fitxer per si hem de tornar a llegir totes les ids
+                    ids.clear();
+                    ids.seekg(0);
 
                     cout << "\nCerca finalitzada. S'han trobat " << found << " pel·lícules de " << total << " buscades"
                          << endl;
-                } else {
+                }
+                else
+                {
                     cout << "No s'ha pogut obrir el fitxer 'cercaPelicules.txt'" << endl;
                 }
                 break;
@@ -308,17 +380,19 @@ void mainHeap() {
                 break;
         }
 
-        opcio = obte_opcio_menu(desc);
+        opcio = obte_opcio_menu(desc, "Min Heap");
     }
 
 }
 
-void casDeProvaExercici3() {
+void casDeProvaExercici3()
+{
     std::cout << " ------------- cas de prova exercici 3 ----------- " << std::endl;
     MinHeap<int, int> heap1;
     int testKeys[] = {2, 0, 8, 45, 76, 5, 3, 40};
     int testValues[] = {5, 5, 1, 88, 99, 12, 9, 11};
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 8; i++)
+    {
         heap1.inserir(testKeys[i], testValues[i]);
     }
     cout << "heap1 ={ ";
